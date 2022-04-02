@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if not reviews %}
+<h1 class="title">
+  This restaurant does not have any reviews in our record.
+</h1>
+{% endif %}
+{% if reviews %}
+<h1 class="title">
+  Review
+</h1>
+{% for time in reviews['review_time'] %}
+<div class="restaurant">
+	<h3 class='rname'>{{ reviews['text'][loop.index0] }}</h3>
+	<i><p>created by {{reviews['user_id']}} at {{ time}} | rating: {{reviews['review_rating'].strip('{}').split(',')[loop.index0]}}</p></i> 
+</div>
+{% endfor %}
+	
+{% endif %}
+<div class="column is-4 is-offset-4">
+
+    <h1 class='title'>{% block title %} Add a Review {% endblock %}</h1>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			<div class="notification is-warning is-light">
+				{{ messages[0] }}
+			</div>
+	{% endif %}
+	{% endwith %}
+    <form method="post", action={{url_for('main.review', restaurant_id=restaurant_id)}}>
+
+        <label for="content">Review Content</label>
+        <br>
+        <textarea name="content"
+                  placeholder="Write your review here!"
+                  rows="15"
+                  cols="60"
+                  >{{ request.form['content'] }}</textarea>
+        <br>
+		<label for="rating">Choose your rating</label>
+        <select name="rating" class="Input">
+              {% for o in data %}
+              <option value="{{ o}}">{{ o}}</option>
+              {% endfor %}
+        </select>
+		<br>
+		<br>
+		<div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="recommend">
+                    Recommend it!
+                </label>
+            </div>
+        <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+    </form>
+	<form method="POST" action={{url_for('main.search')}}>
+            <button class="button is-block is-fullwidth">Back</button>
+        </form>
+</div>
+{% endblock %}

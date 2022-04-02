@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if not reservations %}
+<h1 class="title">
+  You do not have any reservation in our record.
+</h1>
+{% endif %}
+{% if reservations %}
+<h1 class="title">
+  Previous Reservations
+</h1>
+{% for time in reservations['reservation_time'] %}
+<div class="restaurant">
+	<h3 class='rname'>{{ time }}</h3>
+	<i><p>Number of People: {{ reservations['number_of_people'][loop.index0]}} </p></i> 
+</div>
+{% endfor %}
+	
+{% endif %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Reservation</h3>
+    <div class="box">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			<div class="notification">
+				{{ messages[0] }}
+			</div>
+		{% endif %}
+		{% endwith %}
+        <form method="POST" action={{url_for('main.reservation', restaurant_id=restaurant_id)}}>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="datetime-local" name="time" placeholder="Reservation time" autofocus="" required/>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="#people" placeholder="Number of People" required/>
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+        </form>
+		<form method="POST" action={{url_for('main.search')}}>
+            <button class="button is-block is-fullwidth">Back</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

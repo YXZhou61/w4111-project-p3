@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+ 
+<div class="title">
+<h2>User Profile</h2>
+</div>
+ 
+<div class="columns has-same-height is-gapless">
+      <div class="column">
+        <!-- Profile -->
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title has-text-primary">About</h3>
+
+            <div class="content">
+              <table class="table-profile">
+                <tr>
+                  <th colspan="1"></th>
+                  <th colspan="1"></th>
+                </tr>
+                <tr>
+                  <td>Name:</td>
+                  <td>{{current_user.name}}</td>
+                </tr>
+                <tr>
+                  <td>Phone:</td>
+                  <td>{{current_user.phone}}</td>
+                </tr>
+                <tr>
+                  <td>ID(Email):</td>
+                  <td>{{current_user.id}}</td>
+                </tr>
+              </table>
+            </div>
+            <br>
+			</div>
+			</div>
+			</div>
+</div>
+<div class="columns has-same-height is-gapless">
+      <div class="column">
+        <!-- Profile -->
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title has-text-primary">Recommendation</h3>
+
+            <div class="content">
+				{% if not recommendations %}
+				<h1 class="title">
+				  <i><p>Seems you have not found your place to go. Try something new!</p></i> 
+				</h1>
+				{% endif %}
+				{% if recommendations %}
+			
+				{% for rec in recommendations %}
+				<div class="restaurant">
+					<h3 class='rname'>{{rec.restaurant_name}}</h3>
+				</div>
+				{% endfor %}
+					
+				{% endif %}
+				
+              
+            </div>
+            <br>
+			</div>
+			</div>
+			</div>
+</div>
+{% endblock %}
