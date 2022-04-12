@@ -56,7 +56,7 @@ def login_post():
         phone = user[2],
         password=user[3],
     ), remember=remember)
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('main.profile'),code=301)
 
 @auth.route('/signup')
 def signup():
