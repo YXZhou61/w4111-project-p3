@@ -11,7 +11,7 @@ from typing import Dict, Optional
 def create_app():
     app = Flask(__name__)
 
-    #app.config['SECRET_KEY'] = 'secret'
+    app.config['SECRET_KEY'] = 'secret'
     #app.config['SQLALCHEMY_DATABASE_URI'] = DATABASEURI
 
     #db.init_app(app)
